@@ -1,0 +1,109 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<div class="d-flex">
+    <DygraphComponent @ref="dygraphComponent" Title="Temperatures last week" CssClass="me-2"
+                      Width="600"
+                      Height="300"
+                      Series="items"
+                      RollPeriod="0"           
+                      LabelY="Date"
+                      LabelX="Temperature"
+                      ShowRoller="true"
+                      StrokeWidth="0.75"
+                      AnimatedZooms="true" />
+
+    <DygraphComponent @ref="dygraphComponent2" Title="Title" CssClass="me-2"
+                      Width="600"
+                      Height="300"
+                      Series="items"
+                      RollPeriod="0"
+                      LabelY="YLabel"
+                      LabelX="XLabel"
+                      ShowRoller="true"
+                      StrokeWidth="0.75"
+                      AnimatedZooms="true" />
+</div>
+<button type="button" class="btn btn-primary" @onclick="Update" >Update</button>
+
+
+
+@code {
+    private List<DygraphDataSerie> items = new();
+    private DygraphComponent? dygraphComponent;
+    private DygraphComponent? dygraphComponent2;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        // items.Add(("2008-05-07", 75));
+        // items.Add(("2008-05-08", 70));
+        // items.Add(("2008-05-09", 95));
+        // items.Add(("2008-05-10", 50));
+        // items.Add(("2008-05-11", 70));
+        // items.Add(("2008-05-12", 95));
+
+        items.Add(new()
+        {
+            Label = "TestA",
+            LabelX = "Date",
+            Datapoints = {
+                new() { ValueX = 1, ValueY = 75.0 },
+                new() { ValueX = 2, ValueY = 70.0 } ,
+                new() { ValueX = 3, ValueY = 95.0 },
+                new() { ValueX = 4, ValueY = 50.0 },
+            }            
+        });
+
+        items.Add(new()
+            {
+                Label = "TestB",
+                LabelX = "Date",
+                Datapoints = {
+                new() { ValueX = 1, ValueY = 65.0 },
+                new() { ValueX = 2, ValueY = 60.0 } ,
+                new() { ValueX = 3, ValueY = 85.0 },
+                new() { ValueX = 4, ValueY = 40.0 },
+            }
+            });
+    }
+
+    private async Task Update()
+    {
+        items.Clear();
+        items.Add(new()
+            {
+                Label = "TestA",
+                LabelX = "Date",
+                Datapoints = {
+                new() { ValueX = 1, ValueY = 75.0 },
+                new() { ValueX = 2, ValueY = 70.0 } ,
+                new() { ValueX = 3, ValueY = 95.0 },
+                new() { ValueX = 4, ValueY = 50.0 },
+                new() { ValueX = 5, ValueY = 10.0 },
+            }
+            });
+
+        items.Add(new()
+            {
+                Label = "TestB",
+                LabelX = "Date",
+                Datapoints = {
+                new() { ValueX = 1, ValueY = 65.0 },
+                new() { ValueX = 2, ValueY = 60.0 } ,
+                new() { ValueX = 3, ValueY = 85.0 },
+                new() { ValueX = 4, ValueY = 40.0 },
+                new() { ValueX = 5, ValueY = 30.0 },
+            }
+            });
+
+        await dygraphComponent.UpdateGraph(items);
+        await dygraphComponent2.UpdateGraph(items);
+    }
+}
