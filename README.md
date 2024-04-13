@@ -1,6 +1,7 @@
 ﻿## Give a Star! :star:
 If you like or are using this project please give it a star. Thanks!
-# Specification
+
+# Description
 
 Simple lightweigt chart plotter for Blazor
 
@@ -8,7 +9,6 @@ Simple lightweigt chart plotter for Blazor
 
 add '<script src="_content/BlazorDygraphs/js/blazordygraph.js"></script>' to the index.html.
 
-'''html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,4 +44,3 @@ add '<script src="_content/BlazorDygraphs/js/blazordygraph.js"></script>' to the
     </body>
 
 </html>
-'''
